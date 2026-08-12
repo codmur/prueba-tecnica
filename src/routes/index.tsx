@@ -5,6 +5,7 @@ import { CardComponent } from "#/components/home/CardPodcast";
 import { CardSkeleton } from "#/components/skeletons/CardSkeleton";
 import type { Podcasts } from "#/interfaces/podcast";
 import { useDebounce } from "#/lib/hooks/useDebounce";
+import { podcastQueries } from "#/queries/podcastQueries";
 
 type ProductSearch = {
 	searchTerm: string;
@@ -18,6 +19,11 @@ export const Route = createFileRoute("/")({
 				typeof search.searchTerm === "string" ? search.searchTerm : "",
 		};
 	},
+	loader: async ({ context: { queryClient } }) => {
+		queryClient.ensureQueryData(
+			podcastQueries.podcastList()
+		);
+	},
 	component: Home,
 });
 
@@ -25,22 +31,12 @@ function Home() {
 	const { searchTerm } = Route.useSearch();
 	const navigate = Route.useNavigate();
 	const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
 	const {
 		data: listado,
 		isPending,
 		isFetching,
-	} = useQuery({
-		queryKey: ["listado-podcasts"], // TODO: Cambiar a ["listado-podcasts", debouncedSearchTerm] cuando la API permita filtrar por nombre de podcast
-		queryFn: async () => {
-			return fetch(
-				"https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json",
-			).then((res) => res.json());
-		},
-		select: (data) => {
-			return data.feed.entry;
-		},
-		staleTime: 1000 * 60 * 5, // 5 minutos
-	});
+	} = useQuery(podcastQueries.podcastList());
 
 	const listadoFiltrado = !debouncedSearchTerm // FIXIT: Lo suyo sería filtrar con el searchTerm en la API, pero al no tener el endpoint lo hago manual
 		? listado
@@ -58,7 +54,7 @@ function Home() {
 
 	return (
 		<div className="py-4 px-6 gap-4 flex flex-col">
-			<div className="flex justify-end gap-2 items-baseline mb-15">
+			<div className="flex justify-end gap-2 items-baseline mb-15 flex-wrap">
 				<div className="text-sm text-gray-500 bg-blue-500/20 rounded-full py-2 px-4">
 					{totalNumberOfPodcasts} encontrados
 				</div>

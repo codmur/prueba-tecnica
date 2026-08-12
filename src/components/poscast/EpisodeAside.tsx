@@ -15,12 +15,7 @@ export const EpisodeAside = ({
 				<h1 className="text-2xl font-bold mt-2">{collectionName}</h1>
 				<p className="text-gray-500">by {artistName}</p>
 				<p className="mt-4">Descripción:</p>
-				<p className="text-sm text-gray-500">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-					voluptatibus esse quis vel sint dolorum ipsum veritatis omnis sunt,
-					doloremque illo. Rerum mollitia accusamus at possimus sit, officia
-					distinctio magni.
-				</p>
+				<p className="text-sm text-gray-500">{description}</p>
 			</div>
 		</aside>
 	);

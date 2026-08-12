@@ -3,6 +3,7 @@ import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import "./styles.css";
+import { NotFoundComponent } from "./components/NotFoundComponent";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ const router = createRouter({
 	defaultPreload: "intent",
 	defaultPreloadStaleTime: 0,
 	scrollRestoration: true,
+	NotFoundComponent: () => <NotFoundComponent />,
 });
 
 declare module "@tanstack/react-router" {
@@ -28,7 +30,7 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<QueryClientProvider client={queryClient}>
-				<RouterProvider router={router} />
+			<RouterProvider router={router} />
 		</QueryClientProvider>,
 	);
 }
