@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { CardComponent } from "#/components/home/CardPodcast";
 import { CardSkeleton } from "#/components/skeletons/CardSkeleton";
-import type { Podcast } from "#/interfaces/podcast";
+import type { Podcasts } from "#/interfaces/podcast";
 import { useDebounce } from "#/lib/hooks/useDebounce";
 
 type ProductSearch = {
@@ -32,7 +32,6 @@ function Home() {
 	} = useQuery({
 		queryKey: ["listado-podcasts"], // TODO: Cambiar a ["listado-podcasts", debouncedSearchTerm] cuando la API permita filtrar por nombre de podcast
 		queryFn: async () => {
-			// FIXIT: Lo suyo sería filtrar con el searchTerm, pero la API no permite filtrar por nombre de podcast, así que lo hago en el front
 			return fetch(
 				"https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json",
 			).then((res) => res.json());
@@ -43,10 +42,10 @@ function Home() {
 		staleTime: 1000 * 60 * 5, // 5 minutos
 	});
 
-	const listadoFiltrado = !debouncedSearchTerm // Lo suyo sería filtrar con el searchTerm en la API, pero al no tener el endpoint lo hago manual
+	const listadoFiltrado = !debouncedSearchTerm // FIXIT: Lo suyo sería filtrar con el searchTerm en la API, pero al no tener el endpoint lo hago manual
 		? listado
 		: listado?.filter(
-				(podcast: Podcast) =>
+				(podcast: Podcasts) =>
 					podcast["im:name"].label
 						.toLowerCase()
 						.includes(debouncedSearchTerm.toLowerCase()) ||
@@ -55,9 +54,14 @@ function Home() {
 						.includes(debouncedSearchTerm.toLowerCase()),
 			);
 
+	const totalNumberOfPodcasts = listadoFiltrado?.length || 0;
+
 	return (
 		<div className="py-4 px-6 gap-4 flex flex-col">
-			<div className="flex justify-end gap-2">
+			<div className="flex justify-end gap-2 items-baseline mb-15">
+				<div className="text-sm text-gray-500 bg-blue-500/20 rounded-full py-2 px-4">
+					{totalNumberOfPodcasts} encontrados
+				</div>
 				<div className="flex items-center justify-center rounded-2xl bg-neutral-100 w-full max-w-xl">
 					<div className="flex items-center justify-center px-2">
 						{searchTerm !== debouncedSearchTerm || isFetching || isPending ? (
@@ -80,8 +84,8 @@ function Home() {
 			<div
 				className={
 					isFetching
-						? "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 opacity-60"
-						: "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+						? "grid grid-cols-1 gap-4  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 opacity-60"
+						: "grid grid-cols-1 gap-4 gap-y-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
 				}
 			>
 				{!isPending && listadoFiltrado?.length === 0 && (
@@ -94,12 +98,12 @@ function Home() {
 						// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 						[...Array(10)].map((_, index) => <CardSkeleton key={index} />) // No se suele usar pero al ser un skeleton lo puedo meter
 				}
-				
-				{listadoFiltrado?.map((podcast: Podcast) => (
+
+				{listadoFiltrado?.map((podcast: Podcasts) => (
 					<Link
 						key={podcast.id.attributes["im:id"]}
-						to={`/podcast/$potcastId`}
-						params={{ potcastId: podcast.id.attributes["im:id"] }}
+						to={`/podcast/$podcastId`}
+						params={{ podcastId: podcast.id.attributes["im:id"] }}
 					>
 						<CardComponent podcast={podcast} />
 					</Link>
