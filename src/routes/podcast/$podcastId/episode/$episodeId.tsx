@@ -5,6 +5,13 @@ import { AsideSkeleton } from "#/components/skeletons/AsideSkeleton";
 import { podcastQueries } from "#/queries/podcastQueries";
 
 export const Route = createFileRoute("/podcast/$podcastId/episode/$episodeId")({
+	loader: async ({ params, context: { queryClient } }) => {
+		queryClient.ensureQueryData(
+			podcastQueries.podcastDetail({
+				podcastId: params.podcastId,
+			}),
+		);
+	},
 	component: RouteComponent,
 });
 
