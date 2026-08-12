@@ -1,9 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
+import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import "./styles.css";
-import { Navbar } from "./components/layout/Navbar";
 
 const queryClient = new QueryClient();
 

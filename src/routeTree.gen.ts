@@ -10,43 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PotcastIdIndexRouteImport } from './routes/$potcastId/index'
+import { Route as PodcastPotcastIdIndexRouteImport } from './routes/podcast/$potcastId/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PotcastIdIndexRoute = PotcastIdIndexRouteImport.update({
-  id: '/$potcastId/',
-  path: '/$potcastId/',
+const PodcastPotcastIdIndexRoute = PodcastPotcastIdIndexRouteImport.update({
+  id: '/podcast/$potcastId/',
+  path: '/podcast/$potcastId/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/$potcastId/': typeof PotcastIdIndexRoute
+  '/podcast/$potcastId/': typeof PodcastPotcastIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/$potcastId': typeof PotcastIdIndexRoute
+  '/podcast/$potcastId': typeof PodcastPotcastIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/$potcastId/': typeof PotcastIdIndexRoute
+  '/podcast/$potcastId/': typeof PodcastPotcastIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$potcastId/'
+  fullPaths: '/' | '/podcast/$potcastId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$potcastId'
-  id: '__root__' | '/' | '/$potcastId/'
+  to: '/' | '/podcast/$potcastId'
+  id: '__root__' | '/' | '/podcast/$potcastId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PotcastIdIndexRoute: typeof PotcastIdIndexRoute
+  PodcastPotcastIdIndexRoute: typeof PodcastPotcastIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,11 +58,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/$potcastId/': {
-      id: '/$potcastId/'
-      path: '/$potcastId'
-      fullPath: '/$potcastId/'
-      preLoaderRoute: typeof PotcastIdIndexRouteImport
+    '/podcast/$potcastId/': {
+      id: '/podcast/$potcastId/'
+      path: '/podcast/$potcastId'
+      fullPath: '/podcast/$potcastId/'
+      preLoaderRoute: typeof PodcastPotcastIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -70,7 +70,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PotcastIdIndexRoute: PotcastIdIndexRoute,
+  PodcastPotcastIdIndexRoute: PodcastPotcastIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
