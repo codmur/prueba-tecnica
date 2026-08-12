@@ -1,5 +1,5 @@
 
-export interface Podcast {
+export interface Podcasts {
 	"im:name": {
 		label: string;
 	};

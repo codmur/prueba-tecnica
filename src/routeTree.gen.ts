@@ -10,43 +10,52 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as PodcastPotcastIdIndexRouteImport } from './routes/podcast/$potcastId/index'
+import { Route as PodcastRouteRouteImport } from './routes/podcast/route'
+import { Route as PodcastPodcastIdRouteImport } from './routes/podcast/$podcastId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PodcastPotcastIdIndexRoute = PodcastPotcastIdIndexRouteImport.update({
-  id: '/podcast/$potcastId/',
-  path: '/podcast/$potcastId/',
+const PodcastRouteRoute = PodcastRouteRouteImport.update({
+  id: '/podcast',
+  path: '/podcast',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastPodcastIdRoute = PodcastPodcastIdRouteImport.update({
+  id: '/$podcastId',
+  path: '/$podcastId',
+  getParentRoute: () => PodcastRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/podcast/$potcastId/': typeof PodcastPotcastIdIndexRoute
+  '/podcast': typeof PodcastRouteRouteWithChildren
+  '/podcast/$podcastId': typeof PodcastPodcastIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/podcast/$potcastId': typeof PodcastPotcastIdIndexRoute
+  '/podcast': typeof PodcastRouteRouteWithChildren
+  '/podcast/$podcastId': typeof PodcastPodcastIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/podcast/$potcastId/': typeof PodcastPotcastIdIndexRoute
+  '/podcast': typeof PodcastRouteRouteWithChildren
+  '/podcast/$podcastId': typeof PodcastPodcastIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/podcast/$potcastId/'
+  fullPaths: '/' | '/podcast' | '/podcast/$podcastId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/podcast/$potcastId'
-  id: '__root__' | '/' | '/podcast/$potcastId/'
+  to: '/' | '/podcast' | '/podcast/$podcastId'
+  id: '__root__' | '/' | '/podcast' | '/podcast/$podcastId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  PodcastPotcastIdIndexRoute: typeof PodcastPotcastIdIndexRoute
+  PodcastRouteRoute: typeof PodcastRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -58,19 +67,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/podcast/$potcastId/': {
-      id: '/podcast/$potcastId/'
-      path: '/podcast/$potcastId'
-      fullPath: '/podcast/$potcastId/'
-      preLoaderRoute: typeof PodcastPotcastIdIndexRouteImport
+    '/podcast': {
+      id: '/podcast'
+      path: '/podcast'
+      fullPath: '/podcast'
+      preLoaderRoute: typeof PodcastRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/podcast/$podcastId': {
+      id: '/podcast/$podcastId'
+      path: '/$podcastId'
+      fullPath: '/podcast/$podcastId'
+      preLoaderRoute: typeof PodcastPodcastIdRouteImport
+      parentRoute: typeof PodcastRouteRoute
     }
   }
 }
 
+interface PodcastRouteRouteChildren {
+  PodcastPodcastIdRoute: typeof PodcastPodcastIdRoute
+}
+
+const PodcastRouteRouteChildren: PodcastRouteRouteChildren = {
+  PodcastPodcastIdRoute: PodcastPodcastIdRoute,
+}
+
+const PodcastRouteRouteWithChildren = PodcastRouteRoute._addFileChildren(
+  PodcastRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  PodcastPotcastIdIndexRoute: PodcastPotcastIdIndexRoute,
+  PodcastRouteRoute: PodcastRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
