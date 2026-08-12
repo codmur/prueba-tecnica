@@ -4,9 +4,9 @@ Duración estimada de la prueba 4,5h
 
 ## Intalación con pnpm i 
 Iniciar development pnpm dev 
-Iniciar prod pnpm start
+Iniciar production pnpm build | pnpm preview (tengo problemas con las cors después de probar https://allorigins.win/)
 
-# Librerías usadas en el proyecto
+# Librerías usadas en el proyectos
 Router - Tanstack Router 
 Queries y gestión de cache - Tanstack query 
 Estilos - Tailwind (sin librería de componentes)

@@ -45,7 +45,7 @@ function RouteComponent() {
 				</div>
 				<main className="flex flex-col gap-4 w-full  col-span-5">
 					<h2 className="text-xl font-bold pb-1 border-b">
-						Episodios {poscast?.resultCount - 1}
+						Episodios {(poscast?.resultCount ?? 1) - 1}
 					</h2>
 					<div className="flex flex-col gap-4 p-5">
 						{poscast?.results?.lenght > 1 && !isPending && (
