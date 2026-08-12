@@ -6,7 +6,9 @@
 
 ---
 
-# Instalación con pnpm i
+# Inicio rápido
+
+- Instalar dependencias: `pnpm i`
 
 - Iniciar development: `pnpm dev`
 
@@ -34,15 +36,17 @@
 
 # Explicación
 
-Lo suyo sería realizar una paginación sobre los podcasts o un infinite scroll.
 
 ### Mostrar el listado de los 100 podcasts más populares según el listado de Apple
 
 - He usado Query y `fetch` para obtener los datos. Estos están en caché durante 5 minutos.
 
+
+Lo suyo sería realizar una paginación sobre los podcasts o un infinite scroll.
+
 ### Una vez obtenido el listado desde el servicio externo por primera vez se deberá almacenar en cliente de manera que solo se vuelva a solicitar si ha pasado más de un día desde la última vez que se solicitó.
 
-- ¿PersistQueryClientProvider o basta con cambiar el `staleTime` de la query?
+- He puesto el PersistQueryClientProvider 24h o basta con cambiar el `staleTime` de la query.
 
 ### El usuario podrá filtrar los podcasts mostrados introduciendo una cadena de texto que tendrá en cuenta tanto el título de los podcasts como los nombres de sus autores.
 
@@ -69,12 +73,12 @@ Conveniente crear un layout.
 
 ### Se debe mostrar una sección principal donde se visualizará el número de episodios que actualmente tiene el podcast, así como un listado de los mismos indicando su título, fecha de publicación y duración.
 
-- He mostrado un listado de los episodios.
-- Lo suyo sería realizar una paginación sobre los podcasts o un infinite scroll.
+- He mostrado un listado de los episodios con skeleton.
+Lo suyo sería realizar una paginación sobre los podcasts o un infinite scroll.
 
 ### Una vez obtenido el detalle de un podcast desde el servicio externo por primera vez, se deberá almacenar en cliente de manera que solo se vuelva a solicitar si ha pasado un día desde la última vez que se solicitó.
 
-- ¿PersistQueryClientProvider o basta con cambiar el `staleTime` de la query?
+- He puesto el PersistQueryClientProvider 24h o basta con cambiar el `staleTime` de la query.
 
 ### Al pulsar sobre el título de un episodio se deberá navegar a la vista con el detalle del mismo.
 
@@ -90,12 +94,11 @@ Conviene utilizar el layout previamente mencionado.
 
 ### Tanto la imagen como el título del podcast y el autor deben ser enlaces a la vista con el detalle del podcast.
 
-- He creado la redirección.
+- He creado la redirección, con una pequeña transición en la imagen y en el título.
 
 ### Se debe mostrar una sección principal donde se visualizará el título del podcast, su descripción y un reproductor de audio básico (nativo HTML5) para reproducir el podcast.
 
 - Creado con el elemento `audio` nativo de HTML5.
-- Está configurado con `auto`.
 
 ### Se deberá tener en cuenta que algunas descripciones de episodios contienen HTML y este se debe mostrar interpretado (no escapado).
 
@@ -111,9 +114,6 @@ Conviene utilizar el layout previamente mencionado.
 
 - El título funciona como enlace hacia la vista principal.
 
-### Cada vez que se inicie una navegación en cliente se debe mostrar algún tipo de indicador visual en la esquina superior derecha de la página para reflejar que el proceso está en marcha.
-
-Dicho indicador deberá desaparecer tras finalizar la transición a la nueva vista.
-
+### Cada vez que se inicie una navegación en cliente se debe mostrar algún tipo de indicador visual en la esquina superior derecha de la página para reflejar que el proceso está en marcha. Dicho indicador deberá desaparecer tras finalizar la transición a la nueva vista.
 - He utilizado el **state del router** para comprobar si está en estado `loading`.
 - También se puede controlar mediante `idle` / `isPending`.
