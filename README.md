@@ -2,11 +2,16 @@
 node v24.14.0 - pnpm v10.4.0
 Duración estimada de la prueba 4,5h
 
+## Intalación con pnpm i 
+
 # Librerías usadas en el proyecto
 Router - Tanstack Router 
 Queries y gestión de cache - Tanstack query 
 Estilos - Tailwind (sin librería de componentes)
 Fechas - Dayjs (formatear fechas y tiempos)
+Biome - sustituye a eslint y a prettier (es necesario instalar la extension de VSC)
+
+### No he tipado todo para no perder tiempo (quicktype)
 
 # Explicación 
 Lo suyo sería realizar una paginación sobre los podcast o un infiniteScroll. 
@@ -62,4 +67,4 @@ aplicación.
 indicador visual en la esquina superior derecha de la página para reflejar que el
 proceso está en marcha. Dicho indicador deberá desaparecer tras finalizar la
 transición a la nueva vista.
- - Con el state del router
+ - Con el state del router. Se revisa si esta loading o no (tambien por idle - isPending)

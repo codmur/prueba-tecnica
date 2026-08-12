@@ -57,7 +57,7 @@ function RouteComponent() {
 					>
 						<audio
 							controls
-							src={filterEpisode?.description}
+							src={filterEpisode?.previewUrl}
 							className="w-full"
 						/>
 					</div>
