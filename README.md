@@ -3,6 +3,8 @@ node v24.14.0 - pnpm v10.4.0
 Duración estimada de la prueba 4,5h
 
 ## Intalación con pnpm i 
+Iniciar development pnpm dev 
+Iniciar prod pnpm start
 
 # Librerías usadas en el proyecto
 Router - Tanstack Router 

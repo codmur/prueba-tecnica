@@ -7,22 +7,11 @@ export const Navbar = () => {
 				<Link to="/" search={{ searchTerm: "" }}>
 					<h1 className="text-xl font-black hover:cursor-pointer uppercase text-gray-950">
 						Podcaster{" "}
-						<span className="font-bold text-gray-400 text-sm hidden md:inline">
-							de Juan Peñalver
+						<span className="font-bold text-gray-400 text-sm hidden md:inline text-[12px]">
+							Juan Peñalver
 						</span>
 					</h1>
 				</Link>
-				{/* {location.pathname !== "/" && (
-					<Link
-						type="button"
-						to="/"
-						search={{ searchTerm: "" }}
-						className=" rounded-full hover:cursor-pointer bg-neutral-100 flex items-center px-4 py-2 text-sm"
-					>
-						<ChevronLeft className="w-6 h-6" />
-						Atrás
-					</Link>
-				)} */}
 				{state?.isLoading && (
 					<div className="h-5 w-5 rounded-full animate-ping bg-green-500" />
 				)}
