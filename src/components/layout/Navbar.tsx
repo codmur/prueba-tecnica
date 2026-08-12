@@ -7,7 +7,7 @@ export const Navbar = () => {
 				<Link to="/" search={{ searchTerm: "" }}>
 					<h1 className="text-xl font-black hover:cursor-pointer uppercase text-gray-950">
 						Podcaster{" "}
-						<span className="font-bold text-gray-400 text-sm hidden md:inline text-[12px]">
+						<span className="font-bold text-gray-400 lowercase text-sm hidden md:inline text-[12px]">
 							Juan Peñalver
 						</span>
 					</h1>

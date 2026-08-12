@@ -20,8 +20,6 @@ function RouteComponent() {
 		(episode) => episode?.trackId?.toString() === params?.episodeId, // Un pequeño apaño de tipos
 	);
 
-	console.log(filterEpisode);
-
 	return (
 		<div className="py-4 px-6">
 			<div className="grid md:grid-cols-8 gap-4">
@@ -30,7 +28,7 @@ function RouteComponent() {
 						<AsideSkeleton />
 					) : (
 						<EpisodeAside
-							podcastId={params.podcastId}
+							podcastId={params?.podcastId}
 							artworkUrl600={poscast?.results[0]?.artworkUrl600}
 							collectionName={poscast?.results[0]?.collectionName}
 							artistName={poscast?.results[0]?.artistName}
@@ -43,7 +41,7 @@ function RouteComponent() {
 				<main className="flex flex-col gap-4 w-full col-span-5 bg-white rounded-2xl p-4 shadow-sm mt-20 h-fit">
 					<h4 className="text-xl font-bold pb-1">{filterEpisode?.trackName}</h4>
 					<div
-						className="text-sm text-neutral-600 prose max-w-none"
+						className="text-sm text-neutral-600 prose max-w-none text-ellipsis overflow-hidden"
 						dangerouslySetInnerHTML={{
 							__html: filterEpisode?.description ?? "",
 						}}

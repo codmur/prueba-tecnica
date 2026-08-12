@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 export const EpisodeAside = ({
 	podcastId,
@@ -20,13 +21,17 @@ export const EpisodeAside = ({
 					alt={collectionName}
 					className="rounded-lg max-w-72 mx-auto hover:-rotate-4 transition-transform duration-300 ease-linear"
 				/>
-				<div className="">
-					<h1 className="text-2xl font-bold mt-2">{collectionName}</h1>
+				<div>
+					<h1 className="text-2xl font-bold mt-2 hover:underline flex items-center gap-4 ">
+						{collectionName}{" "}
+						<SquareArrowOutUpRight className="w-4 h-4 text-neutral-500" />
+					</h1>
 					<p className="text-gray-500">by {artistName}</p>
-					<p className="mt-4">Descripción:</p>
-					<p className="text-sm text-gray-500">{description}</p>
 				</div>
 			</Link>
+
+			<p className="mt-4">Descripción:</p>
+			<p className="text-sm text-gray-500 text-ellipsis overflow-hidden">{description}</p>
 		</aside>
 	);
 };
