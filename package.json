@@ -12,13 +12,15 @@
     "preview": "vite preview",
     "format": "biome format",
     "lint": "biome lint",
-    "check": "biome check",
-    "start": "node --import ./.output/server/instrument.server.mjs .output/server/index.mjs"
+    "check": "biome check"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/query-async-storage-persister": "^5.101.4",
     "@tanstack/react-devtools": "latest",
     "@tanstack/react-query": "^5.101.4",
+    "@tanstack/react-query-devtools": "^5.101.4",
+    "@tanstack/react-query-persist-client": "^5.101.4",
     "@tanstack/react-router": "latest",
     "@tanstack/react-router-devtools": "latest",
     "dayjs": "^1.11.21",

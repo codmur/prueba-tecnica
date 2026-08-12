@@ -20,7 +20,7 @@ Lo suyo sería realizar una paginación sobre los podcast o un infiniteScroll.
 ● Mostrar el listado de los 100 podcasts más populares según el listado de Apple (más info al final del documento).
  - He usado query y fetch para obtener los datos estos están en cache durante 5 minutos
 ● Una vez obtenido el listado desde el servicio externo por primera vez se deberá almacenar en cliente de manera que solo se vuelva a solicitar si ha pasado más de un día desde la última vez que se solicitó.
- - Basta con cambiar el staleTime de la query. 
+ - PersistQueryClientProvider o basta con cambiar el staleTime de la query . 
 ● El usuario podrá filtrar los podcasts mostrados introduciendo una cadena de texto que tendrá en cuenta tanto el título de los podcasts así como los nombres de sus autores.
   - Como no tengo el enpoint de filtrado he filtrado sobre los 100 elementos con un filter. He usado searchComponent para realizarlo.
 ● El filtrado deberá ser inmediato de manera que reaccione a medida que el usuario vaya introduciendo su texto de filtrado.
@@ -41,7 +41,7 @@ título, fecha de publicación y duración.
 ● Una vez obtenido el detalle de un podcast desde el servicio externo por primera
 vez, se deberá almacenar en cliente de manera que solo se vuelva a solicitar si ha
 pasado un día desde la última vez que se solicitó.
- - Basta con cambiar el staleTime de la query. (Lo tengo en 5 min para que lo probéis)
+ - PersistQueryClientProvider o basta con cambiar el staleTime de la query . 
 ● Al pulsar sobre el título de un episodio se deberá navegar a la vista con el
 detalle del mismo.
   - He usado intend del router para precargar del episodio antes de hacer click. 

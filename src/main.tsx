@@ -1,11 +1,22 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen";
 import "./styles.css";
-import { NotFoundComponent } from "./components/NotFoundComponent";
+import { createAsyncStoragePersister } from "@tanstack/query-async-storage-persister";
+import { PersistQueryClientProvider } from "@tanstack/react-query-persist-client";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			gcTime: 1000 * 60 * 60 * 24, // Mantener los datos 24h
+		},
+	},
+});
+
+const asyncStoragePersister = createAsyncStoragePersister({
+	storage: window.localStorage,
+});
 
 const router = createRouter({
 	routeTree,
@@ -15,7 +26,6 @@ const router = createRouter({
 	defaultPreload: "intent",
 	defaultPreloadStaleTime: 0,
 	scrollRestoration: true,
-	NotFoundComponent: () => <NotFoundComponent />,
 });
 
 declare module "@tanstack/react-router" {
@@ -29,8 +39,11 @@ const rootElement = document.getElementById("app")!;
 if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
-		<QueryClientProvider client={queryClient}>
+		<PersistQueryClientProvider
+			client={queryClient}
+			persistOptions={{ persister: asyncStoragePersister }}
+		>
 			<RouterProvider router={router} />
-		</QueryClientProvider>,
+		</PersistQueryClientProvider>,
 	);
 }
